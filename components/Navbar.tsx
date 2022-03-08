@@ -18,7 +18,7 @@ import {
   useColorMode,
   Center,
 } from '@chakra-ui/react';
-import { HamburgerIcon, CloseIcon, AddIcon, MoonIcon, SunIcon } from '@chakra-ui/icons';
+import { HamburgerIcon, CloseIcon, MoonIcon, SunIcon } from '@chakra-ui/icons';
 
 const Links = ['Home', 'Calculator', 'Champion Rotation'];
 
@@ -31,7 +31,7 @@ const NavLink = ({ children }: { children: ReactNode }) => (
       textDecoration: 'none',
       bg: useColorModeValue('gray.200', 'gray.700'),
     }}
-    href={'#'}>
+    href={children}>
     {children}
   </Link>
 );
