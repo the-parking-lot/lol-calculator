@@ -7,15 +7,16 @@ import {
   useColorMode,
   useColorModeValue,
 } from '@chakra-ui/react';
+import Runes from '../components/runes';
 // import clientPromise from '../lib/mongodb';
 const clientPromise = require('../lib/mongodb')
 
-const calculator = () => {
+const Calculator = () => {
   return (
     <>
       <Box>
-        <Flex>
-          <Flex w="100%" mt={2} h={400}>
+        <Flex direction={'column'} alignItems='center' mb={100}>
+          <Flex w="100%" mt={2} h={800}>
             <Box 
               py={2}
               maxW="75%"
@@ -43,6 +44,7 @@ const calculator = () => {
               >Champions List</Heading>
             </Box>
           </Flex>
+        <Runes></Runes>
         </Flex>
       </Box>
     </>
@@ -68,5 +70,5 @@ export async function getServerSideProps(context: any) {
   }
 }
 
-export default calculator
+export default Calculator
   
