@@ -1,9 +1,11 @@
-import { Box, Flex, Heading, Stack, useColorModeValue } from "@chakra-ui/react";
+import { SearchIcon } from "@chakra-ui/icons";
+import { Box, Flex, Heading, Input, InputGroup, InputLeftElement, useColorModeValue } from "@chakra-ui/react";
 import Image from 'next/image'
+import React, { useEffect } from "react";
 
 const Champ = ({ children }: { children: String }) => {
  return (
-  <Flex minW={150} w={150} maxW={300} textAlign={"center"} >
+  <Flex minW={150} w={150} maxW={300} textAlign={"center"} display={"none"}>
     <Image 
       src={`/../public/champ_icons/${children}.png`}
       width={50}
@@ -21,8 +23,18 @@ const Champ = ({ children }: { children: String }) => {
   
 )}
 
+
 const ChampsList = ( champs: string[] ) => {
   const champList = Object.values(champs);
+
+  const [search, setSearch] = React.useState<String>("");
+
+  const handleSearch = (e: any) => {
+    e.preventDefault();
+    setSearch(e.target.value);
+    console.log(search);
+  }
+
   return (
   <Box
     bg={useColorModeValue('gray.200', 'gray.700')}
@@ -39,21 +51,29 @@ const ChampsList = ( champs: string[] ) => {
       mb={3}
     >Champions List
     </Heading>
-      <Box
-        borderRadius="5px"
-        py={2}
-        minW={200}
-        ml={1}
-        mr={2}
-        h={400}
-        overflowY="scroll"
-      >
-      {champList.map((champ) => (
-        <Champ key={champ}>{champ}</Champ>
-      ))}
+    <InputGroup mb={2}>
+      <InputLeftElement
+        pointerEvents="none"
+        children={<SearchIcon color="gray.300" />}
+      />
+      <Input onChange={(e) => handleSearch(e)} type="champion" placeholder="Champion Name" />
+    </InputGroup>
+    <Box
+      borderRadius="5px"
+      py={2}
+      minW={200}
+      ml={1}
+      mr={2}
+      h={400}
+      overflowY="scroll"
+    >
+    {champList.map((champ) => (
+      <Champ key={champ}>{champ}</Champ>
+    ))}
     </Box>
   </Box>
   );
 };
+
 
 export default ChampsList
