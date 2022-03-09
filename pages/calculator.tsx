@@ -7,10 +7,14 @@ import {
   useColorMode,
   useColorModeValue,
 } from '@chakra-ui/react';
+import { useEffect, useState } from 'react';
 // import clientPromise from '../lib/mongodb';
-const clientPromise = require('../lib/mongodb')
+// const clientPromise = require('../lib/mongodb')
 
-const calculator = () => {
+const calculator = ({ items, champions } : { items: any, champions: any}) => {
+  const itemData = Object.keys(items['data'])
+  const championData = Object.keys(champions['data'])
+
   return (
     <>
       <Box>
@@ -27,7 +31,7 @@ const calculator = () => {
               <Heading
                 size='md'
                 ml={3}
-                >Champion Info</Heading>
+              >Champion Info</Heading>
             </Box>
             <Box 
               borderRadius="5px"
@@ -37,10 +41,13 @@ const calculator = () => {
               ml={1}
               mr={2}
             >
-            <Heading
-              size='md'
-              ml={3}
+              <Heading
+                size='md'
+                ml={3}
               >Champions List</Heading>
+              <Box>
+                {championData}
+              </Box>
             </Box>
           </Flex>
         </Flex>
@@ -49,22 +56,16 @@ const calculator = () => {
   )
 }
 
-export async function getServerSideProps(context: any) {
-  try {
-    // client.db() will be the default database passed in the MONGODB_URI
-    // You can change the database by calling the client.db() function and specifying a database like:
-    // const db = client.db("myDatabase");
-    // Then you can execute queries against your database like so:
-    // db.find({}) or any of the MongoDB Node Driver commands
-    await clientPromise
-    return {
-      props: { isConnected: true },
-    }
-  } catch (e) {
-    console.error(e)
-    return {
-      props: { isConnected: false },
-    }
+export const getStaticProps = async () => {
+  const resItems = await fetch('http://ddragon.leagueoflegends.com/cdn/12.5.1/data/en_US/item.json')
+  const items = await resItems.json()
+
+  const resChampions = await fetch('https://ddragon.leagueoflegends.com/cdn/12.5.1/data/en_US/championFull.json')
+  const champions = await resChampions.json()
+
+  return {
+    props: { items, champions },
+    revalidate: 100000,
   }
 }
 
