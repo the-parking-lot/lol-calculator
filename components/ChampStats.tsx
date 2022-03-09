@@ -26,4 +26,4 @@ const ChampStats = ( Champion: String) => {
   )
 }
 
-export default  ChampStats
+export default ChampStats
