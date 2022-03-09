@@ -9,7 +9,7 @@ import {
 } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import ChampStats from '../components/ChampStats';
-import Items from '../components/Items';
+import ChampsList from '../components/ChampsList';
 
 const Calculator = ({ items, champions } : { items: any, champions: any}) => {
   const itemData = Object.keys(items['data'])
@@ -34,11 +34,9 @@ const Calculator = ({ items, champions } : { items: any, champions: any}) => {
               <Heading
                 size='md'
                 ml={3}
-              >Champions List</Heading>
-              <Box>
-                {championData}
-              </Box>
+              >Champion Info</Heading>
             </Box>
+            <ChampsList {...championData}></ChampsList>
           </Flex>
         </Flex>
       </Box>
