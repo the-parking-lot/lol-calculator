@@ -7,7 +7,8 @@ import {
   useColorMode,
   useColorModeValue,
 } from '@chakra-ui/react';
-import clientPromise from '../lib/mongodb';
+// import clientPromise from '../lib/mongodb';
+const clientPromise = require('../lib/mongodb')
 
 const calculator = () => {
   const { colorMode, toggleColorMode } = useColorMode();
