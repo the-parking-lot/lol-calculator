@@ -9,8 +9,9 @@ import {
 } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import ChampStats from '../components/ChampStats';
+import Items from '../components/Items';
 
-const calculator = ({ items, champions } : { items: any, champions: any}) => {
+const Calculator = ({ items, champions } : { items: any, champions: any}) => {
   const itemData = Object.keys(items['data'])
   const championData = Object.keys(champions['data'])
 
@@ -58,5 +59,5 @@ export const getStaticProps = async () => {
   }
 }
 
-export default calculator
+export default Calculator
   
