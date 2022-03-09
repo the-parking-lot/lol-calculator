@@ -11,15 +11,12 @@ import {
 const clientPromise = require('../lib/mongodb')
 
 const calculator = () => {
-  const { colorMode, toggleColorMode } = useColorMode();
-
   return (
     <>
       <Box>
         <Flex>
           <Flex w="100%" mt={2} h={400}>
             <Box 
-              bg={useColorModeValue('gray.100', 'gray.900')}
               py={2}
               maxW="75%"
               w="75%"
@@ -33,7 +30,6 @@ const calculator = () => {
                 >Champion Info</Heading>
             </Box>
             <Box 
-              bg={useColorModeValue('gray.100', 'gray.900')}
               borderRadius="5px"
               py={2}
               maxW="25%"
