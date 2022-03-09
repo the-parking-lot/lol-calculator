@@ -2,7 +2,7 @@ import {
   Box,
 } from '@chakra-ui/react';
 
-const index = () => {
+const rotation = () => {
   return (
     <>
       <Box>
@@ -11,4 +11,4 @@ const index = () => {
   )
 }
 
-export default index
+export default rotation
