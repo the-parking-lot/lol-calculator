@@ -7,6 +7,7 @@ import {
   useColorMode,
   useColorModeValue,
 } from '@chakra-ui/react';
+import Runes from '../components/Runes';
 import { useEffect, useState } from 'react';
 import ChampStats from '../components/ChampStats';
 import ChampsList from '../components/ChampsList';
@@ -20,24 +21,12 @@ const Calculator = ({ items, champions } : { items: any, champions: any}) => {
   return (
     <>
       <Box>
-        <Flex direction={'column'} alignItems={'center'}>
+        <Flex direction={'column'} alignItems={'center'} mb={100} > 
           <Flex w="100%" mt={2} h={800}>
             <ChampStats {...Champion}></ChampStats>
-            <Box 
-              borderRadius="5px"
-              py={2}
-              maxW="25%"
-              w="25%"
-              ml={1}
-              mr={2}
-            >
-              <Heading
-                size='md'
-                ml={3}
-              >Champion Info</Heading>
-            </Box>
             <ChampsList {...championData}></ChampsList>
           </Flex>
+          <Runes></Runes>
         </Flex>
       </Box>
     </>
