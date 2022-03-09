@@ -3,7 +3,7 @@ import {
   useColorModeValue,
 } from '@chakra-ui/react';
 
-const index = () => {
+const calculator = () => {
   return (
     <>
       <Box bg={useColorModeValue('gray.100', 'gray.900')} px={4}>
@@ -12,4 +12,5 @@ const index = () => {
   )
 }
 
-export default index
+export default calculator
+  
