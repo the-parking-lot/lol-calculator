@@ -1,4 +1,3 @@
-import { ReactNode } from 'react';
 import NextLink from 'next/link'
 import {
   Box,
@@ -20,23 +19,31 @@ import {
   Center,
 } from '@chakra-ui/react';
 import { HamburgerIcon, CloseIcon, MoonIcon, SunIcon } from '@chakra-ui/icons';
+import { motion } from 'framer-motion'
+
+const MotionBox = motion(Box);
 
 const Links = ['Home', 'Calculator', 'Rotation'];
 
 const NavLink = ({ children }: { children: String }) => (
-  <NextLink href={`${children.toLowerCase()}`} passHref>
-    <Link
-    px={2}
-    py={1}
-    rounded={'md'}
-    _hover={{
-    textDecoration: 'none',
-    bg: useColorModeValue('gray.200', 'gray.700'),
-    }}
+    <MotionBox
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
     >
-    {children}
-    </Link>
-  </NextLink>
+        <NextLink href={`${children.toLowerCase()}`} passHref>
+            <Link
+            px={2}
+            py={1}
+            rounded={'md'}
+            _hover={{
+            textDecoration: 'none',
+            bg: useColorModeValue('gray.200', 'gray.700'),
+            }}
+            >
+            {children}
+            </Link>
+        </NextLink>
+    </MotionBox>
 );
 
 const Navbar = () => {
