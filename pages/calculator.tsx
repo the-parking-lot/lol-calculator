@@ -8,6 +8,7 @@ import {
   useColorModeValue,
 } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
+import ChampsList from '../components/ChampsList';
 // import clientPromise from '../lib/mongodb';
 // const clientPromise = require('../lib/mongodb')
 
@@ -15,11 +16,16 @@ const calculator = ({ items, champions } : { items: any, champions: any}) => {
   const itemData = Object.keys(items['data'])
   const championData = Object.keys(champions['data'])
 
+  //const [champs, ]
   return (
     <>
       <Box>
         <Flex>
-          <Flex w="100%" mt={2} h={400}>
+          <Flex 
+            w="100%"
+            mt={2}
+            h={400}
+          >
             <Box 
               py={2}
               maxW="75%"
@@ -33,22 +39,7 @@ const calculator = ({ items, champions } : { items: any, champions: any}) => {
                 ml={3}
               >Champion Info</Heading>
             </Box>
-            <Box 
-              borderRadius="5px"
-              py={2}
-              maxW="25%"
-              w="25%"
-              ml={1}
-              mr={2}
-            >
-              <Heading
-                size='md'
-                ml={3}
-              >Champions List</Heading>
-              <Box>
-                {championData}
-              </Box>
-            </Box>
+            <ChampsList {...championData}></ChampsList>
           </Flex>
         </Flex>
       </Box>
