@@ -22,7 +22,7 @@ const Calculator = ({ items, champions } : { items: any, champions: any}) => {
     <>
       <Box>
         <Flex direction={'column'} alignItems={'center'} mb={100} > 
-          <Flex w="100%" mt={2} h={800}>
+          <Flex w="100%" mt={2}>
             <ChampStats {...Champion}></ChampStats>
             <ChampsList {...championData}></ChampsList>
           </Flex>

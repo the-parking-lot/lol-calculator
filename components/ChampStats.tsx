@@ -1,4 +1,4 @@
-import { Box, Heading } from "@chakra-ui/react"
+import { Box, Heading, useColorModeValue } from "@chakra-ui/react"
 
 const ChampStats = ( Champion: String) => {
 
@@ -8,12 +8,13 @@ const ChampStats = ( Champion: String) => {
 
   return (
     <Box 
-      py={2}
-      maxW="75%"
+      bg={useColorModeValue('gray.200', 'gray.700')}
+      p={4}
+      m={8}
+      minW={350}
+      maxW="100%"
       w="75%"
       borderRadius="5px"
-      ml={2}
-      mr={1}
     >
       <Heading
         size='md'
