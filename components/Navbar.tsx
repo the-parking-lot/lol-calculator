@@ -2,21 +2,14 @@ import NextLink from 'next/link'
 import {
   Box,
   Flex,
-  Avatar,
   Link,
   IconButton,
   HStack,
   Button,
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
-  MenuDivider,
   useDisclosure,
   useColorModeValue,
   Stack,
   useColorMode,
-  Center,
 } from '@chakra-ui/react';
 import { HamburgerIcon, CloseIcon, MoonIcon, SunIcon } from '@chakra-ui/icons';
 import { motion } from 'framer-motion'
@@ -66,9 +59,9 @@ const Navbar = () => {
                     as={'nav'}
                     spacing={4}
                     display={{ base: 'none', md: 'flex' }}>
-                    {Links.map((link) => (
-                        <NavLink key={link}>{link}</NavLink>
-                    ))}
+                        {Links.map((link) => (
+                            <NavLink key={link}>{link}</NavLink>
+                        ))}
                     </HStack>
                 </HStack>
 

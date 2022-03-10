@@ -9,48 +9,24 @@ import {
 } from '@chakra-ui/react';
 import Runes from '../components/Runes';
 import { useEffect, useState } from 'react';
-// import clientPromise from '../lib/mongodb';
-// const clientPromise = require('../lib/mongodb')
+import ChampStats from '../components/ChampStats';
+import ChampsList from '../components/ChampsList';
 
 const Calculator = ({ items, champions } : { items: any, champions: any}) => {
   const itemData = Object.keys(items['data'])
   const championData = Object.keys(champions['data'])
+
+  const [Champion, setChampion] = useState<String>("")
+
   return (
     <>
       <Box>
-        <Flex direction={'column'} alignItems='center' mb={100}>
-          <Flex w="100%" mt={2} h={800}>
-            <Box 
-              py={2}
-              maxW="75%"
-              w="75%"
-              borderRadius="5px"
-              ml={2}
-              mr={1}
-            >
-              <Heading
-                size='md'
-                ml={3}
-              >Champion Info</Heading>
-            </Box>
-            <Box 
-              borderRadius="5px"
-              py={2}
-              maxW="25%"
-              w="25%"
-              ml={1}
-              mr={2}
-            >
-              <Heading
-                size='md'
-                ml={3}
-              >Champions List</Heading>
-              <Box>
-                {championData}
-              </Box>
-            </Box>
+        <Flex direction={'column'} alignItems={'center'} mb={100} > 
+          <Flex w="100%" mt={2}>
+            <ChampStats {...Champion}></ChampStats>
+            <ChampsList {...championData}></ChampsList>
           </Flex>
-        <Runes></Runes>
+          <Runes></Runes>
         </Flex>
       </Box>
     </>
