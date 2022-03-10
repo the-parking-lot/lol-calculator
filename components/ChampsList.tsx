@@ -1,13 +1,14 @@
 import { SearchIcon } from "@chakra-ui/icons";
-import { Box, Flex, Heading, Input, InputGroup, InputLeftElement, useColorModeValue } from "@chakra-ui/react";
+import { Box, Button, Flex, Heading, Input, InputGroup, InputLeftElement, useColorModeValue } from "@chakra-ui/react";
 import Image from 'next/image'
 import React, { useEffect } from "react";
 
 const Champ = ({ children }: { children: String }) => {
  return (
-  <Flex minW={150} w={150} maxW={300} textAlign={"center"}>
+  <Button h={55} minW={150} w="100%" mr={-5} mt={2} textAlign={"left"}>
+    
     <Image 
-      src={`/../public/champ_icons/${children}.png`}
+      src={toImageName(children)}
       width={50}
       height={50}
       alt={`${children}`} />
@@ -19,27 +20,43 @@ const Champ = ({ children }: { children: String }) => {
     >
     {children}
     </Box>
-  </Flex>
-  
+  </Button>
 )}
 
+const toImageName = ( name: String ) => {
+  let imageName:String = "";
+  for ( const champ of Object.values(data) as any) {
+    if (champ["name"] == name) {
+      imageName = champ["id"];
+    }
+  }
+  return "/../public/champ_icons/" + imageName + ".png"
+}
 
-const ChampsList = ( champs: string[] ) => {
-  const champList = Object.values(champs);
+let data = {};
+
+const ChampsList = ({ champs, selectChamp }: { champs: any, selectChamp: any } ) => {
+  data = champs;
+
+  selectChamp("test")
+
+  // champNames: The actual names of the champions
+  let champNames: String[] = []
+  for ( const info of Object.values(champs) as any) {
+    champNames.push(info["name"]);
+  }
 
   const [search, setSearch] = React.useState<String>("");
 
   const handleSearch = (e: any) => {
     e.preventDefault();
     setSearch(e.target.value);
-    console.log(search);
   }
   
-  let champSearch = champList.filter(champ => {
+  let champSearch = champNames.filter(champ => {
     let str = search.valueOf().toLowerCase();
-    if (str == "") return champ;
-    else return champ.toLowerCase().includes(str)
-  })
+    return str == "" ? champ : champ.toLowerCase().includes(str);
+  }).sort()
 
   return (
   <Box
@@ -70,12 +87,12 @@ const ChampsList = ( champs: string[] ) => {
       minW={200}
       ml={1}
       mr={2}
-      h={400}
+      h={450}
       overflowY="scroll"
     >
     {champSearch.map((champ) => (
-      <Champ key={champ}>{champ}</Champ>
-    ))}
+      <Champ {...champs} >{champ}</Champ>
+      ))}
     </Box>
   </Box>
   );

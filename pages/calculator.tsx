@@ -14,7 +14,6 @@ import ChampsList from '../components/ChampsList';
 
 const Calculator = ({ items, champions } : { items: any, champions: any}) => {
   const itemData = Object.keys(items['data'])
-  const championData = Object.keys(champions['data'])
 
   const [Champion, setChampion] = useState<String>("")
 
@@ -23,8 +22,8 @@ const Calculator = ({ items, champions } : { items: any, champions: any}) => {
       <Box>
         <Flex direction={'column'} alignItems={'center'} mb={100} > 
           <Flex w="100%" mt={2}>
-            <ChampStats {...Champion}></ChampStats>
-            <ChampsList {...championData}></ChampsList>
+            <ChampStats selected={Champion} ></ChampStats>
+            <ChampsList champs={champions['data']} selectChamp={setChampion} ></ChampsList>
           </Flex>
           <Runes></Runes>
         </Flex>
