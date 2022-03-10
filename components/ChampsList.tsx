@@ -5,7 +5,7 @@ import React, { useEffect } from "react";
 
 const Champ = ({ children }: { children: String }) => {
  return (
-  <Flex minW={150} w={150} maxW={300} textAlign={"center"} display={"none"}>
+  <Flex minW={150} w={150} maxW={300} textAlign={"center"}>
     <Image 
       src={`/../public/champ_icons/${children}.png`}
       width={50}
@@ -34,6 +34,12 @@ const ChampsList = ( champs: string[] ) => {
     setSearch(e.target.value);
     console.log(search);
   }
+  
+  let champSearch = champList.filter(champ => {
+    let str = search.valueOf().toLowerCase();
+    if (str == "") return champ;
+    else return champ.toLowerCase().includes(str)
+  })
 
   return (
   <Box
@@ -67,7 +73,7 @@ const ChampsList = ( champs: string[] ) => {
       h={400}
       overflowY="scroll"
     >
-    {champList.map((champ) => (
+    {champSearch.map((champ) => (
       <Champ key={champ}>{champ}</Champ>
     ))}
     </Box>
