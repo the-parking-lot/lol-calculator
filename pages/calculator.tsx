@@ -8,14 +8,19 @@ import {
   useColorModeValue,
 } from '@chakra-ui/react';
 import Runes from '../components/Runes';
-import { useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import ChampStats from '../components/ChampStats';
 import ChampsList from '../components/ChampsList';
 
-const Calculator = ({ items, champions } : { items: any, champions: any}) => {
-  const itemData = Object.keys(items['data'])
+interface CalculatorProps {
+  items: any;
+  champions: any;
+}
 
-  const [Champion, setChampion] = useState<String>("")
+const Calculator:FC<CalculatorProps> = (props) => {
+  const itemData = Object.keys(props.items['data'])
+
+  const [Champion, setChampion] = useState<string>("")
 
   return (
     <>
@@ -23,7 +28,7 @@ const Calculator = ({ items, champions } : { items: any, champions: any}) => {
         <Flex direction={'column'} alignItems={'center'} mb={100} > 
           <Flex w="100%" mt={2}>
             <ChampStats selected={Champion} ></ChampStats>
-            <ChampsList champs={champions['data']} selectChamp={setChampion} ></ChampsList>
+            <ChampsList champs={props.champions['data']} selectChamp={setChampion}></ChampsList>
           </Flex>
           <Runes></Runes>
         </Flex>

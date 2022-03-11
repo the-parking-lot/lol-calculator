@@ -1,30 +1,42 @@
 import { SearchIcon } from "@chakra-ui/icons";
 import { Box, Button, Flex, Heading, Input, InputGroup, InputLeftElement, useColorModeValue } from "@chakra-ui/react";
 import Image from 'next/image'
-import React, { useEffect } from "react";
+import React, { Dispatch, FC, SetStateAction, useEffect } from "react";
 
-const Champ = ({ children }: { children: String }) => {
+interface ChampProps {
+  champion: string;
+  selectChamp: Dispatch<SetStateAction<string>>;
+}
+
+const Champ:FC<ChampProps> = (props) => {
  return (
-  <Button h={55} minW={150} w="100%" mr={-5} mt={2} textAlign={"left"}>
-    
+  <Button 
+    h={55}
+    minW={150}
+    w="100%"
+    mr={-5}
+    mt={2}
+    textAlign={"left"}
+    onClick={() => {props.selectChamp(props.champion)}}
+    >
     <Image 
-      src={toImageName(children)}
+      src={toImageName(props.champion)}
       width={50}
       height={50}
-      alt={`${children}`} />
+      alt={`${props.champion}`} />
     <Box
       borderRadius="5px"
       py={2}
       ml={1}
       mr={2}
     >
-    {children}
+    {props.champion}
     </Box>
   </Button>
 )}
 
-const toImageName = ( name: String ) => {
-  let imageName:String = "";
+const toImageName = ( name: string ) => {
+  let imageName:string = "";
   for ( const champ of Object.values(data) as any) {
     if (champ["name"] == name) {
       imageName = champ["id"];
@@ -35,18 +47,21 @@ const toImageName = ( name: String ) => {
 
 let data = {};
 
-const ChampsList = ({ champs, selectChamp }: { champs: any, selectChamp: any } ) => {
-  data = champs;
+interface ChampListProps {
+  champs: any;
+  selectChamp: Dispatch<SetStateAction<string>>;
+}
 
-  selectChamp("test")
+const ChampsList:FC<ChampListProps> = (props) => {
+  data = props.champs;
 
   // champNames: The actual names of the champions
-  let champNames: String[] = []
-  for ( const info of Object.values(champs) as any) {
+  let champNames: string[] = []
+  for ( const info of Object.values(props.champs) as any) {
     champNames.push(info["name"]);
   }
 
-  const [search, setSearch] = React.useState<String>("");
+  const [search, setSearch] = React.useState<string>("");
 
   const handleSearch = (e: any) => {
     e.preventDefault();
@@ -91,7 +106,7 @@ const ChampsList = ({ champs, selectChamp }: { champs: any, selectChamp: any } )
       overflowY="scroll"
     >
     {champSearch.map((champ) => (
-      <Champ {...champs} >{champ}</Champ>
+      <Champ champion={champ} selectChamp={props.selectChamp} >{champ}</Champ>
       ))}
     </Box>
   </Box>
