@@ -20,7 +20,7 @@ interface CalculatorProps {
 const Calculator:FC<CalculatorProps> = (props) => {
   const itemData = Object.keys(props.items['data'])
 
-  const [Champion, setChampion] = useState<string>("")
+  const [Champion, setChampion] = useState<string>("none")
 
   return (
     <>

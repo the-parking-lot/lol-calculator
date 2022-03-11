@@ -8,7 +8,7 @@ interface ChampProps {
   selectChamp: Dispatch<SetStateAction<string>>;
 }
 
-const Champ:FC<ChampProps> = (props) => {
+const ChampionCard:FC<ChampProps> = (props) => {
  return (
   <Button 
     h={55}
@@ -90,10 +90,9 @@ const ChampsList:FC<ChampListProps> = (props) => {
     >Champions List
     </Heading>
     <InputGroup mb={2}>
-      <InputLeftElement
-        pointerEvents="none"
-        children={<SearchIcon color="gray.300" />}
-      />
+      <InputLeftElement pointerEvents="none">
+        <SearchIcon color="gray.300" />
+      </InputLeftElement>
       <Input onChange={(e) => handleSearch(e)} type="champion" placeholder="Champion Name" />
     </InputGroup>
     <Box
@@ -105,9 +104,15 @@ const ChampsList:FC<ChampListProps> = (props) => {
       h={450}
       overflowY="scroll"
     >
-    {champSearch.map((champ) => (
-      <Champ champion={champ} selectChamp={props.selectChamp} >{champ}</Champ>
-      ))}
+    {champSearch.map(champ => (
+      <ChampionCard 
+        key={champ}
+        champion={champ}
+        selectChamp={props.selectChamp}
+        >
+        {champ}
+      </ChampionCard>
+    ))}
     </Box>
   </Box>
   );
