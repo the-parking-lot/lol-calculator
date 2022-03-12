@@ -1,10 +1,7 @@
 import { Box, Heading, useColorModeValue } from "@chakra-ui/react"
 
-const ChampStats = ( Champion: String) => {
-
-  let selectedChamp: String = "None";
-
-  console.log(Champion)
+const ChampStats = ({ selected }: { selected: String }) => {
+  let selectedChamp: String = selected;
 
   return (
     <Box 

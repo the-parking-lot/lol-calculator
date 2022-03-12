@@ -1,45 +1,77 @@
 import { SearchIcon } from "@chakra-ui/icons";
-import { Box, Flex, Heading, Input, InputGroup, InputLeftElement, useColorModeValue } from "@chakra-ui/react";
+import { Box, Button, Flex, Heading, Input, InputGroup, InputLeftElement, useColorModeValue } from "@chakra-ui/react";
 import Image from 'next/image'
-import React, { useEffect } from "react";
+import React, { Dispatch, FC, SetStateAction, useEffect } from "react";
 
-const Champ = ({ children }: { children: String }) => {
+interface ChampProps {
+  champion: string;
+  selectChamp: Dispatch<SetStateAction<string>>;
+}
+
+const ChampionCard:FC<ChampProps> = (props) => {
  return (
-  <Flex minW={150} w={150} maxW={300} textAlign={"center"}>
+  <Button 
+    h={55}
+    minW={150}
+    w="100%"
+    mr={-5}
+    mt={2}
+    textAlign={"left"}
+    onClick={() => {props.selectChamp(props.champion)}}
+    >
     <Image 
-      src={`/../public/champ_icons/${children}.png`}
+      src={toImageName(props.champion)}
       width={50}
       height={50}
-      alt={`${children}`} />
+      alt={`${props.champion}`} />
     <Box
       borderRadius="5px"
       py={2}
       ml={1}
       mr={2}
     >
-    {children}
+    {props.champion}
     </Box>
-  </Flex>
-  
+  </Button>
 )}
 
+const toImageName = ( name: string ) => {
+  let imageName:string = "";
+  for ( const champ of Object.values(data) as any) {
+    if (champ["name"] == name) {
+      imageName = champ["id"];
+    }
+  }
+  return "/../public/champ_icons/" + imageName + ".png"
+}
 
-const ChampsList = ( champs: string[] ) => {
-  const champList = Object.values(champs);
+let data = {};
 
-  const [search, setSearch] = React.useState<String>("");
+interface ChampListProps {
+  champs: any;
+  selectChamp: Dispatch<SetStateAction<string>>;
+}
+
+const ChampsList:FC<ChampListProps> = (props) => {
+  data = props.champs;
+
+  // champNames: The actual names of the champions
+  let champNames: string[] = []
+  for ( const info of Object.values(props.champs) as any) {
+    champNames.push(info["name"]);
+  }
+
+  const [search, setSearch] = React.useState<string>("");
 
   const handleSearch = (e: any) => {
     e.preventDefault();
     setSearch(e.target.value);
-    console.log(search);
   }
   
-  let champSearch = champList.filter(champ => {
+  let champSearch = champNames.filter(champ => {
     let str = search.valueOf().toLowerCase();
-    if (str == "") return champ;
-    else return champ.toLowerCase().includes(str)
-  })
+    return str == "" ? champ : champ.toLowerCase().includes(str);
+  }).sort()
 
   return (
   <Box
@@ -58,10 +90,9 @@ const ChampsList = ( champs: string[] ) => {
     >Champions List
     </Heading>
     <InputGroup mb={2}>
-      <InputLeftElement
-        pointerEvents="none"
-        children={<SearchIcon color="gray.300" />}
-      />
+      <InputLeftElement pointerEvents="none">
+        <SearchIcon color="gray.300" />
+      </InputLeftElement>
       <Input onChange={(e) => handleSearch(e)} type="champion" placeholder="Champion Name" />
     </InputGroup>
     <Box
@@ -70,11 +101,17 @@ const ChampsList = ( champs: string[] ) => {
       minW={200}
       ml={1}
       mr={2}
-      h={400}
+      h={450}
       overflowY="scroll"
     >
-    {champSearch.map((champ) => (
-      <Champ key={champ}>{champ}</Champ>
+    {champSearch.map(champ => (
+      <ChampionCard 
+        key={champ}
+        champion={champ}
+        selectChamp={props.selectChamp}
+        >
+        {champ}
+      </ChampionCard>
     ))}
     </Box>
   </Box>
