@@ -2,9 +2,11 @@ import { SearchIcon } from "@chakra-ui/icons";
 import { Box, Button, Flex, Heading, Input, InputGroup, InputLeftElement, useColorModeValue } from "@chakra-ui/react";
 import Image from 'next/image'
 import React, { Dispatch, FC, SetStateAction, useEffect } from "react";
+import getStaticProps from '../pages/calculator';
 
 interface ChampProps {
   champion: string;
+  champsData: {};
   selectChamp: Dispatch<SetStateAction<string>>;
 }
 
@@ -16,14 +18,14 @@ const ChampionCard:FC<ChampProps> = (props) => {
     w="100%"
     mr={-5}
     mt={2}
-    textAlign={"left"}
+    justifyContent="left"
     onClick={() => {props.selectChamp(props.champion)}}
     >
     <Image 
-      src={toImageName(props.champion)}
+      src={toImageName(props.champion, props.champsData)}
       width={50}
       height={50}
-      alt={`${props.champion}`} />
+      alt={`${props.champion}`}/>
     <Box
       borderRadius="5px"
       py={2}
@@ -35,9 +37,9 @@ const ChampionCard:FC<ChampProps> = (props) => {
   </Button>
 )}
 
-const toImageName = ( name: string ) => {
+export const toImageName = ( name: string, champsData: {} ) => {
   let imageName:string = "";
-  for ( const champ of Object.values(data) as any) {
+  for ( const champ of Object.values(champsData) as any) {
     if (champ["name"] == name) {
       imageName = champ["id"];
     }
@@ -45,19 +47,17 @@ const toImageName = ( name: string ) => {
   return "/../public/champ_icons/" + imageName + ".png"
 }
 
-let data = {};
 
 interface ChampListProps {
-  champs: any;
+  champsData: any;
   selectChamp: Dispatch<SetStateAction<string>>;
 }
 
 const ChampsList:FC<ChampListProps> = (props) => {
-  data = props.champs;
 
   // champNames: The actual names of the champions
   let champNames: string[] = []
-  for ( const info of Object.values(props.champs) as any) {
+  for ( const info of Object.values(props.champsData) as any) {
     champNames.push(info["name"]);
   }
 
@@ -108,6 +108,7 @@ const ChampsList:FC<ChampListProps> = (props) => {
       <ChampionCard 
         key={champ}
         champion={champ}
+        champsData={props.champsData}
         selectChamp={props.selectChamp}
         >
         {champ}
