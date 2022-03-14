@@ -1,7 +1,15 @@
 import { Box, Heading, useColorModeValue } from "@chakra-ui/react"
+import Image from 'next/image';
+import { FC } from "react";
+import { toImageName } from "./ChampsList";
 
-const ChampStats = ({ selected }: { selected: String }) => {
-  let selectedChamp: String = selected;
+interface ChampStatsProps {
+  champsData: {};
+  selected: string;
+}
+
+const ChampStats:FC<ChampStatsProps> = ( props ) => {
+  let selectedChamp: string = props.selected;
 
   return (
     <Box 
@@ -20,6 +28,11 @@ const ChampStats = ({ selected }: { selected: String }) => {
       <Box>
         Selected Champion is {selectedChamp}
       </Box>
+      <Image 
+      src={toImageName(selectedChamp, props.champsData)}
+      width={650}
+      height={650}
+      alt={`${selectedChamp}`}/>
     </Box>
   )
 }
