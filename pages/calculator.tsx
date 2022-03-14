@@ -6,6 +6,7 @@ import Runes from '../components/Runes';
 import { FC, useEffect, useState } from 'react';
 import ChampStats from '../components/ChampStats';
 import ChampsList from '../components/ChampsList';
+import { GetStaticProps } from 'next';
 interface CalculatorProps {
   items: any;
   champions: any;
@@ -32,7 +33,7 @@ const Calculator:FC<CalculatorProps> = (props) => {
   )
 }
 
-export const getStaticProps = async () => {
+export const getStaticProps: GetStaticProps = async (context) => {
   const resItems = await fetch('http://ddragon.leagueoflegends.com/cdn/12.5.1/data/en_US/item.json')
   const items = await resItems.json()
 
