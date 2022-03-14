@@ -44,7 +44,7 @@ export const toImageName = ( name: string, champsData: {} ) => {
       imageName = champ["id"];
     }
   }
-  return "/../public/champ_icons/" + imageName + ".png"
+  return "/champ_icons/" + imageName + ".png"
 }
 
 

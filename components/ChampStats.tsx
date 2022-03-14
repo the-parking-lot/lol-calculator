@@ -30,8 +30,8 @@ const ChampStats:FC<ChampStatsProps> = ( props ) => {
       </Box>
       <Image 
       src={toImageName(selectedChamp, props.champsData)}
-      width={650}
-      height={650}
+      width={450}
+      height={450}
       alt={`${selectedChamp}`}/>
     </Box>
   )
