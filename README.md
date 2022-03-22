@@ -14,7 +14,6 @@
 </p>
 
 <!-- DOCUMENTATION -->
-# League of Legends Calculator
 ## Deployed on Vercel
 
 https://lol-calculator.vercel.app/
