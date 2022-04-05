@@ -5,8 +5,6 @@ import {
 const rotation = () => {
   return (
     <>
-      <Box>
-      </Box>
     </>
   )
 }
