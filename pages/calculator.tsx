@@ -7,10 +7,11 @@ import {
   useColorMode,
   useColorModeValue,
 } from '@chakra-ui/react';
-import Runes from '../components/Runes';
+import Runes from '../components/runes/Runes';
 import { useEffect, useState } from 'react';
 import ChampStats from '../components/ChampStats';
 import ChampsList from '../components/ChampsList';
+import TabBox from '../components/TabBox';
 
 const Calculator = ({ items, champions } : { items: any, champions: any}) => {
   const itemData = Object.keys(items['data'])
@@ -26,7 +27,7 @@ const Calculator = ({ items, champions } : { items: any, champions: any}) => {
             <ChampStats {...Champion}></ChampStats>
             <ChampsList {...championData}></ChampsList>
           </Flex>
-          <Runes></Runes>
+          <TabBox />
         </Flex>
       </Box>
     </>
