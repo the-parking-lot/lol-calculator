@@ -4,14 +4,19 @@ import {
   Heading,
   HStack,
   Spacer,
+  Tab,
+  TabList,
+  TabPanel,
+  TabPanels,
+  Tabs,
   useColorMode,
   useColorModeValue,
 } from '@chakra-ui/react';
-import Runes from '../components/runes/Runes';
+import Runes from '../components/Runes';
 import { useEffect, useState } from 'react';
 import ChampStats from '../components/ChampStats';
 import ChampsList from '../components/ChampsList';
-import TabBox from '../components/TabBox';
+import Items from '../components/Items';
 
 const Calculator = ({ items, champions } : { items: any, champions: any}) => {
   const itemData = Object.keys(items['data'])
@@ -27,7 +32,20 @@ const Calculator = ({ items, champions } : { items: any, champions: any}) => {
             <ChampStats {...Champion}></ChampStats>
             <ChampsList {...championData}></ChampsList>
           </Flex>
-          <TabBox />
+          <Tabs isFitted variant='enclosed' w='97%'>
+            <TabList>
+                <Tab><Heading size="lg" mb={3}>Runes</Heading></Tab>
+                <Tab><Heading size="lg" mb={3}>Items</Heading></Tab>
+            </TabList>
+            <TabPanels>
+                <TabPanel>
+                    <Runes />
+                </TabPanel>
+                <TabPanel>
+                    <Items />
+                </TabPanel>
+            </TabPanels>
+        </Tabs>
         </Flex>
       </Box>
     </>
