@@ -18,9 +18,10 @@ import ChampStats from '../components/ChampStats';
 import ChampsList from '../components/ChampsList';
 import Items from '../components/Items';
 
-const Calculator = ({ items, champions } : { items: any, champions: any}) => {
+const Calculator = ({ items, champions, runes } : { items: any, champions: any, runes: any}) => {
   const itemData = Object.keys(items['data'])
   const championData = Object.keys(champions['data'])
+  const runeData = runes
 
   const [Champion, setChampion] = useState<String>("")
 
@@ -39,7 +40,7 @@ const Calculator = ({ items, champions } : { items: any, champions: any}) => {
             </TabList>
             <TabPanels>
                 <TabPanel>
-                    <Runes />
+                    <Runes {...runeData}/>
                 </TabPanel>
                 <TabPanel>
                     <Items />
@@ -59,8 +60,11 @@ export const getStaticProps = async () => {
   const resChampions = await fetch('https://ddragon.leagueoflegends.com/cdn/12.5.1/data/en_US/championFull.json')
   const champions = await resChampions.json()
 
+  const resRunes = await fetch('https://ddragon.leagueoflegends.com/cdn/12.5.1/data/en_US/runesReforged.json')
+  const runes = await resRunes.json()
+
   return {
-    props: { items, champions },
+    props: { items, champions, runes },
     revalidate: 100000,
   }
 }

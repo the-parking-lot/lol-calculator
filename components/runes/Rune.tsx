@@ -1,27 +1,54 @@
-import { Box, IconButton } from '@chakra-ui/react'
-import React, { Dispatch, FC, SetStateAction } from 'react'
+import { IconButton } from '@chakra-ui/react'
+import React, { Dispatch, SetStateAction } from 'react'
 import Image from 'next/image'
+import { RuneStyle } from './style'
 
 type RuneProps = {
   setPrimary: Dispatch<SetStateAction<string>>,
+  setPrimaryKeystone: Dispatch<SetStateAction<string>>,
+  setPrimaryRowOne: Dispatch<SetStateAction<string>>,
+  setPrimaryRowTwo: Dispatch<SetStateAction<string>>,
+  setPrimaryRowThree: Dispatch<SetStateAction<string>>,
   children: any,
+  rune: string,
 }
 
-const Rune = ( { setPrimary, children }: RuneProps ) => {
+const Rune = ( {
+  setPrimary,
+  setPrimaryKeystone,
+  setPrimaryRowOne,
+  setPrimaryRowTwo,
+  setPrimaryRowThree,
+  children,
+  rune
+}: RuneProps ) => {
+  const scale: number = (children === rune || rune === "") ? 0 : 100;
+  const handleClick = () => {
+    setPrimary(children);
+    setPrimaryKeystone("");
+    setPrimaryRowOne("");
+    setPrimaryRowTwo("");
+    setPrimaryRowThree("");
+  }
   return (
     <>
       <IconButton aria-label={`${children}`}
-        icon={<Image 
-          src={`/../public/rune_icons/${children}.png`}
-          width={45}
-          height={45}
-          alt={`${children}`} />}
+        icon={<RuneStyle scale={scale}>
+          <Image 
+            src={`/../public/rune_icons/${children}.png`}
+            width={70}
+            height={70}
+            alt={`${children}`}
+          />
+        </RuneStyle>}
         variant='ghost'
-        h={55}
-        w={55}
+        h={"7vh"}
+        w={"3.5vw"}
         mx={1}
-        onClick={() => setPrimary(children)}
-        />
+        mt={5}
+        mb={10}
+        onClick={handleClick}
+      />
     </>
   )
 }
