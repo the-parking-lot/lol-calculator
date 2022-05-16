@@ -1,9 +1,9 @@
 import { IconButton, Tooltip, useColorModeValue } from '@chakra-ui/react'
 import React, { Dispatch, FC, SetStateAction } from 'react'
 import Image from 'next/image'
-import { RuneStyle } from "./style";
-import { runeType } from '../Runes';
-import { ReadableRuneInfo } from '../../functions/ReadableRuneInfo';
+import { RuneStyle } from "../style";
+import { runeType } from '../../Runes';
+import { ReadableRuneInfo } from '../../../functions/ReadableRuneInfo';
 
 type RuneProps = {
   setPrimaryRowThree: Dispatch<SetStateAction<string>>,
@@ -21,7 +21,7 @@ const PrimaryRowThree = ( { setPrimaryRowThree, children, rune, lesserRune, rune
     <>
       <Tooltip label={runeInfo} aria-label="tooltip" bg={useColorModeValue('gray.200', 'gray.700')} textColor={useColorModeValue('black', 'white')}>
         <IconButton aria-label={`${children}`}
-          icon={<RuneStyle scale={scale} rune={rune} lesserRune={lesserRune}>
+          icon={<RuneStyle scale={scale}>
             <Image 
               src={`/../public/rune_icons/${rune}/${children}/${children}.png`}
               width={55}

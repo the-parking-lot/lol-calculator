@@ -1,34 +1,25 @@
 import { IconButton } from '@chakra-ui/react'
 import React, { Dispatch, SetStateAction } from 'react'
 import Image from 'next/image'
-import { RuneStyle } from './style'
+import { RuneStyle } from '../style'
 
 type RuneProps = {
-  setPrimary: Dispatch<SetStateAction<string>>,
-  setPrimaryKeystone: Dispatch<SetStateAction<string>>,
-  setPrimaryRowOne: Dispatch<SetStateAction<string>>,
-  setPrimaryRowTwo: Dispatch<SetStateAction<string>>,
-  setPrimaryRowThree: Dispatch<SetStateAction<string>>,
+  setSecondary: Dispatch<SetStateAction<string>>,
+  setSecondaryRunes: Dispatch<SetStateAction<string[]>>;
   children: any,
-  rune: string,
+  secondary: string,
 }
 
-const Rune = ( {
-  setPrimary,
-  setPrimaryKeystone,
-  setPrimaryRowOne,
-  setPrimaryRowTwo,
-  setPrimaryRowThree,
+const SecondaryRune = ( {
+  setSecondary,
+  setSecondaryRunes,
   children,
-  rune
+  secondary,
 }: RuneProps ) => {
-  const scale: number = (children === rune || rune === "") ? 0 : 100;
+  const scale: number = (children === secondary || secondary === "") ? 0 : 100;
   const handleClick = () => {
-    setPrimary(children);
-    setPrimaryKeystone("");
-    setPrimaryRowOne("");
-    setPrimaryRowTwo("");
-    setPrimaryRowThree("");
+    setSecondary(children);
+    setSecondaryRunes([]);
   }
   return (
     <>
@@ -53,4 +44,4 @@ const Rune = ( {
   )
 }
 
-export default Rune;
+export default SecondaryRune;

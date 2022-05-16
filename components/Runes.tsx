@@ -1,10 +1,14 @@
 import { Box, Center, Flex, Heading, useColorModeValue, Wrap, WrapItem } from '@chakra-ui/react'
 import { useState } from 'react'
-import PrimaryKeystone from './runes/PrimaryKeystone';
-import PrimaryRowOne from './runes/PrimaryRowOne';
-import PrimaryRowTwo from './runes/PrimaryRowTwo';
-import PrimaryRowThree from './runes/PrimaryRowThree';
-import Rune from './runes/Rune'
+import PrimaryKeystone from './runes/primary/PrimaryKeystone';
+import PrimaryRowOne from './runes/primary/PrimaryRowOne';
+import PrimaryRowTwo from './runes/primary/PrimaryRowTwo';
+import PrimaryRowThree from './runes/primary/PrimaryRowThree';
+import PrimaryRune from './runes/primary/PrimaryRune'
+import SecondaryRune from './runes/secondary/SecondaryRune';
+import SecondaryRowOne from './runes/secondary/SecondaryRowOne';
+import SecondaryRowTwo from './runes/secondary/SecondaryRowTwo';
+import SecondaryRowThree from './runes/secondary/SecondaryRowThree';
 
 const setLesserRunes = (rune : string) => {
   let keystones: string[] = [];
@@ -101,9 +105,14 @@ const Runes = ( runes: pathType[] ) => {
   const [primaryRowThree, setPrimaryRowThree] = useState<string>("");
 
   const [secondary, setSecondary] = useState<string>("");
+  const [secondaryRunes, setSecondaryRunes] = useState<string[]>([]);
 
-  const lesserRunes = setLesserRunes(primary);
-  const runesInfo = setRunesInfo(runes, primary);
+  const primaryLesserRunes = setLesserRunes(primary);
+  const primaryRunesInfo = setRunesInfo(runes, primary);
+
+  const secondaryLesserRunes = setLesserRunes(secondary);
+  const secondaryRunesInfo = setRunesInfo(runes, secondary);
+  console.log(secondaryRunes)
 
   return (
     <Box bg={useColorModeValue('gray.200', 'gray.700')} p={4} minW={500} w="100%" borderRadius={5} alignItems={"center"} textAlign={"center"} >
@@ -115,14 +124,16 @@ const Runes = ( runes: pathType[] ) => {
               {paths.map((rune) => {
                 return (
                   <WrapItem key={rune}>
-                    <Rune
+                    <PrimaryRune
                       setPrimary={setPrimary}
                       setPrimaryKeystone={setPrimaryKeystone}
                       setPrimaryRowOne={setPrimaryRowOne}
                       setPrimaryRowTwo={setPrimaryRowTwo}
                       setPrimaryRowThree={setPrimaryRowThree}
+                      setSecondary={setSecondary}
+                      setSecondaryRunes={setSecondaryRunes}
                       rune={primary}
-                      >{rune}</Rune>
+                      >{rune}</PrimaryRune>
                   </WrapItem>
                 )
               })}
@@ -130,14 +141,14 @@ const Runes = ( runes: pathType[] ) => {
           </Center>
           <Center>
             <Wrap>
-              {lesserRunes[0].map((keystone, index) => {
+              {primaryLesserRunes[0].map((keystone, index) => {
                 return (
                   <WrapItem key={keystone}>
                     <PrimaryKeystone
                       setPrimaryKeystone={setPrimaryKeystone}
                       rune={primary}
                       keystone={primaryKeystone}
-                      runesInfo={runesInfo[0]["runes"]}
+                      runesInfo={primaryRunesInfo[0]["runes"]}
                       index={index}
                     >{keystone}</PrimaryKeystone>
                   </WrapItem>
@@ -147,14 +158,14 @@ const Runes = ( runes: pathType[] ) => {
           </Center>
           <Center>
             <Wrap>
-              {lesserRunes[1].map((lesserRune, index) => {
+              {primaryLesserRunes[1].map((lesserRune, index) => {
                 return (
                   <WrapItem key={lesserRune}>
                     <PrimaryRowOne
                       setPrimaryRowOne={setPrimaryRowOne}
                       rune={primary}
                       lesserRune={primaryRowOne}
-                      runesInfo={runesInfo[1]["runes"]}
+                      runesInfo={primaryRunesInfo[1]["runes"]}
                       index={index}
                     >{lesserRune}</PrimaryRowOne>
                   </WrapItem>
@@ -164,14 +175,14 @@ const Runes = ( runes: pathType[] ) => {
           </Center>
           <Center>
             <Wrap>
-              {lesserRunes[2].map((lesserRune, index) => {
+              {primaryLesserRunes[2].map((lesserRune, index) => {
                 return ( 
                   <WrapItem key={lesserRune}>
                     <PrimaryRowTwo 
                       setPrimaryRowTwo={setPrimaryRowTwo}
                       rune={primary}
                       lesserRune={primaryRowTwo}
-                      runesInfo={runesInfo[2]["runes"]}
+                      runesInfo={primaryRunesInfo[2]["runes"]}
                       index={index}
                     >{lesserRune}</PrimaryRowTwo>
                   </WrapItem>
@@ -181,15 +192,14 @@ const Runes = ( runes: pathType[] ) => {
           </Center>
           <Center>
             <Wrap>
-              {lesserRunes[3].map((lesserRune, index) => {
+              {primaryLesserRunes[3].map((lesserRune, index) => {
                 return (
                   <WrapItem key={lesserRune}>
                     <PrimaryRowThree
                       setPrimaryRowThree={setPrimaryRowThree}
-                      key={lesserRune}
                       rune={primary}
                       lesserRune={primaryRowThree}
-                      runesInfo={runesInfo[3]["runes"]}
+                      runesInfo={primaryRunesInfo[3]["runes"]}
                       index={index}
                     >{lesserRune}</PrimaryRowThree>
                   </WrapItem>
@@ -199,10 +209,82 @@ const Runes = ( runes: pathType[] ) => {
           </Center>
         </Box>
         <Box bg={useColorModeValue('white', 'gray.800')} flex='1' h="100%" borderRadius={5} mx={5}>
-          <Heading size="md" m={5}> Secondary</Heading>
+          <Heading size="md" m={3}> Secondary</Heading>
+          <Center>
+            <Wrap>
+              {paths.map((rune) => {
+                return ( rune !== primary && primary !== "" &&
+                  <WrapItem key={rune}>
+                    <SecondaryRune
+                      setSecondary={setSecondary}
+                      setSecondaryRunes={setSecondaryRunes}
+                      secondary={secondary}
+                      >{rune}</SecondaryRune>
+                  </WrapItem>
+                )
+              })}
+            </Wrap>
+          </Center>
+          <Center>
+            <Wrap>
+              {secondaryLesserRunes[1].map((lesserRune, index) => {
+                return (
+                  <WrapItem key={lesserRune}>
+                    <SecondaryRowOne
+                      setSecondaryRunes={setSecondaryRunes}
+                      secondaryRunes={secondaryRunes}
+                      rune={secondary}
+                      lesserRune={secondaryRunes}
+                      runesInfo={secondaryRunesInfo[1]["runes"]}
+                      runesList={secondaryLesserRunes[1]}
+                      index={index}
+                    >{lesserRune}</SecondaryRowOne>
+                  </WrapItem>
+                )
+              })}
+            </Wrap>
+          </Center>
+          <Center>
+            <Wrap>
+              {secondaryLesserRunes[2].map((lesserRune, index) => {
+                return ( 
+                  <WrapItem key={lesserRune}>
+                    <SecondaryRowTwo 
+                      setSecondaryRunes={setSecondaryRunes}
+                      secondaryRunes={secondaryRunes}
+                      rune={secondary}
+                      lesserRune={secondaryRunes}
+                      runesInfo={secondaryRunesInfo[2]["runes"]}
+                      runesList={secondaryLesserRunes[2]}
+                      index={index}
+                    >{lesserRune}</SecondaryRowTwo>
+                  </WrapItem>
+                )
+              })}
+            </Wrap>
+          </Center>
+          <Center>
+            <Wrap>
+              {secondaryLesserRunes[3].map((lesserRune, index) => {
+                return (
+                  <WrapItem key={lesserRune}>
+                    <SecondaryRowThree
+                      setSecondaryRunes={setSecondaryRunes}
+                      secondaryRunes={secondaryRunes}
+                      rune={secondary}
+                      lesserRune={secondaryRunes}
+                      runesInfo={secondaryRunesInfo[3]["runes"]}
+                      runesList={secondaryLesserRunes[3]}
+                      index={index}
+                    >{lesserRune}</SecondaryRowThree>
+                  </WrapItem>
+                )
+              })}
+            </Wrap>
+          </Center>
         </Box>
         <Box bg={useColorModeValue('white', 'gray.800')} flex='1' h="100%" borderRadius={5} mx={5}>
-          <Heading size="md" m={5}> Shards</Heading>
+          <Heading size="md" m={3}> Shards</Heading>
         </Box>
       </Flex>
     </Box>

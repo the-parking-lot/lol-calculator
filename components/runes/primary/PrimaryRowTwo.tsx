@@ -1,9 +1,9 @@
 import { IconButton, Tooltip, useColorModeValue } from '@chakra-ui/react'
 import React, { Dispatch, SetStateAction } from 'react'
 import Image from 'next/image'
-import { RuneStyle } from "./style";
-import { runeType } from '../Runes';
-import { ReadableRuneInfo } from '../../functions/ReadableRuneInfo';
+import { RuneStyle } from "../style";
+import { runeType } from '../../Runes';
+import { ReadableRuneInfo } from '../../../functions/ReadableRuneInfo';
 
 type RuneProps = {
   setPrimaryRowTwo: Dispatch<SetStateAction<string>>,
