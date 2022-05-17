@@ -33,7 +33,11 @@ const Calculator = ({ items, champions, runes } : { items: any, champions: any, 
             <ChampStats {...Champion}></ChampStats>
             <ChampsList {...championData}></ChampsList>
           </Flex>
-          <Tabs isFitted variant='enclosed' w='97%'>
+          <Flex w="100%" mt={2}>
+            <Runes {...runeData}/>
+            <Items />
+          </Flex>
+          {/* <Tabs isFitted variant='enclosed' w='97%'>
             <TabList>
                 <Tab><Heading size="lg" mb={3}>Runes</Heading></Tab>
                 <Tab><Heading size="lg" mb={3}>Items</Heading></Tab>
@@ -46,7 +50,7 @@ const Calculator = ({ items, champions, runes } : { items: any, champions: any, 
                     <Items />
                 </TabPanel>
             </TabPanels>
-        </Tabs>
+        </Tabs> */}
         </Flex>
       </Box>
     </>

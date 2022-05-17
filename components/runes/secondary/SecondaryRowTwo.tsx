@@ -60,7 +60,7 @@ const SecondaryRowTwo = ( {
           h={70}
           w={70}
           mx={3}
-          mb={75}
+          mb={10}
           onClick={handleClick}
         />
       </Tooltip>
